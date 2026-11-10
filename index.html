@@ -14,7 +14,7 @@ h1{margin:0 0 24px;text-align:center;font-size:25px;color:#eaf7ff}
 .section-title{margin-bottom:10px;font-size:15px;font-weight:700;color:#c7d4e2}
 .stage-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:5px}
 .stage-button,.trade-button,.trade-next-button,.trade-back-button,.calculate-button{cursor:pointer;font-weight:700;transition:.15s}
-.stage-button{height:38px;border:1px solid #46515f;border-radius:7px;color:#fff;font-size:14px}
+.stage-button{height: 38px;border: 1px solid #46515f;border-radius: 7px;color: #fff;font-size: 16px;font-weight: 800;cursor: pointer;transition: .15s;display: flex;align-items: center;justify-content: center;padding: 0;line-height: 1;}
 .stage-button.selected{outline:2px solid #73cafa;outline-offset:2px;transform:translateY(-1px)}
 .stage-2,.stage-3,.stage-4{background:linear-gradient(135deg,#b9784b,#75452c)}
 .stage-5,.stage-6,.stage-7{background:linear-gradient(135deg,#d4dce5,#747f8c);color:#17202a}
@@ -44,7 +44,8 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 .narrow-setting.show{display:inline-flex}
 .narrow-setting input{width:14px;height:14px;margin:0;accent-color:#56bce9;cursor:pointer}
 .reference-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin:18px 0 0;line-height:1.4;overflow-wrap:anywhere}
-.price-label{flex-shrink:0;color:#aab8c8;font-size:12px;font-weight:600}
+.price-label{display:inline-flex;flex-shrink:0;align-items:center;gap:4px;color:#aab8c8;font-size:12px;font-weight:600}
+.price-stage-icon{flex-basis:44px;width:44px;height:38px;border-radius:7px;font-size:18px;transform: translateY(-1px);}
 .price-value{min-width:0;color:#fff;font-size:19px;font-weight:800;overflow-wrap:anywhere}
 .market-note{display:block;min-height:18px;margin-top:8px;font-size:11px;font-weight:700;line-height:1.5;text-align:center;visibility:hidden}
 .market-note.show{visibility:visible}
@@ -65,7 +66,7 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
   body{padding:20px 12px}
   h1{font-size:22px}
   .stage-grid{gap:4px}
-  .stage-button{height:34px;font-size:12px}
+  .stage-button{height:34px;font-size:14px}
   .result-grid{gap:8px}
   .result-card{padding:13px 9px}
   .reference-price{margin-top:0;gap:5px}
@@ -74,6 +75,7 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
   .trade-button{font-size:11px}
   .card-title{gap:4px;font-size:12px}
   .stage-icon{flex-basis:23px;width:23px;height:23px;font-size:12px}
+  .price-stage-icon{flex-basis:40px;width:40px;height:34px;font-size:16px}
   .stage-arrow{font-size:11px}
   .market-note{min-height:33px;font-size:10px}
   .trade-next-button{font-size:11px}
@@ -117,7 +119,10 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
           </label>
         </div>
         <div class="reference-price">
-          <span class="price-label" id="minPriceLabel">기준가</span>
+          <span class="price-label">
+            <span class="stage-icon price-stage-icon" id="minPriceStageIcon"></span>
+            <span id="minPriceLabel">강 기준가</span>
+          </span>
           <span class="price-value" id="minPriceValue"></span>
         </div>
         <div class="market-note binding-note" id="bindingNote">귀속매물의 경우 하한가 배율이 낮을 수 있습니다.</div>
@@ -146,7 +151,10 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
           </label>
         </div>
         <div class="reference-price">
-          <span class="price-label" id="maxPriceLabel">기준가</span>
+          <span class="price-label">
+            <span class="stage-icon price-stage-icon" id="maxPriceStageIcon"></span>
+            <span id="maxPriceLabel">강 기준가</span>
+          </span>
           <span class="price-value" id="maxPriceValue"></span>
         </div>
         <div class="market-note popular-note" id="popularNote">인기매물의 경우 상한가 배율이 높을 수 있습니다.</div>
@@ -164,10 +172,12 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 const $ = id => document.getElementById(id);
 const ids = `
   stageGrid priceInput pricePreview calculateButton message resultArea priceSectionTitle
-  minFromStageIcon minToStageIcon maxFromStageIcon maxToStageIcon minMultiplier maxMultiplier
-  minPriceLabel minPriceValue maxPriceLabel maxPriceValue minUpperButton minLowerButton maxUpperButton
-  minNarrowMode maxNarrowMode minNarrowSetting maxNarrowSetting bindingNote popularNote
-  stageNavigation nextMinUpperStageButton backStageButton
+  minFromStageIcon minToStageIcon maxFromStageIcon maxToStageIcon
+  minPriceStageIcon maxPriceStageIcon minMultiplier maxMultiplier
+  minPriceLabel minPriceValue maxPriceLabel maxPriceValue
+  minUpperButton minLowerButton maxUpperButton
+  minNarrowMode maxNarrowMode minNarrowSetting maxNarrowSetting
+  bindingNote popularNote stageNavigation nextMinUpperStageButton backStageButton
 `;
 const dom = Object.fromEntries(ids.trim().split(/\s+/).map(id => [id, $(id)]));
 
@@ -263,7 +273,12 @@ function calculateTradePrice(reference, rate) {
 }
 
 function renderPrice(type, label, value) {
-  dom[`${type}PriceLabel`].textContent = label;
+  const stage = state.result.stage;
+  const icon = dom[`${type}PriceStageIcon`];
+
+  icon.textContent = stage;
+  icon.className = `stage-icon price-stage-icon stage-${stage}`;
+  dom[`${type}PriceLabel`].textContent = `강 ${label}`;
   dom[`${type}PriceValue`].textContent = formatPrice(value);
 }
 
@@ -446,10 +461,10 @@ function calculateNextStage() {
   if (!calculate(true)) restoreState();
 }
 
-function toggleTrade(type, direction, force = false) {
+function toggleTrade(type, direction) {
   if (!state.result) return;
   const key = type === "min" ? "minTrade" : "maxTrade";
-  state[key] = !force && state[key] === direction ? null : direction;
+  state[key] = state[key] === direction ? null : direction;
   render();
 }
 
