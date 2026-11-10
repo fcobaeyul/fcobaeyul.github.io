@@ -8,79 +8,89 @@
 :root{color-scheme:dark;font-family:Arial,"Malgun Gothic",sans-serif;background:#10151d;color:#edf3fa}
 *{box-sizing:border-box}
 body{margin:0;padding:100px 24px 16px}
-.container{max-width:620px;margin:auto}
+.container{max-width:680px;margin:auto}
 h1{margin:0 0 24px;text-align:center;font-size:25px;color:#eaf7ff}
 .section{margin-bottom:22px}
 .section-title{margin-bottom:10px;font-size:15px;font-weight:700;color:#c7d4e2}
+#priceSectionTitle{margin-top:10px}
+#priceStageNumber{margin-right:4px;font-size:1.25em;font-weight:900;color:#fff}
+.price-stage-unit{margin-right:2px}
 .stage-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:5px}
-.stage-button,.trade-button,.trade-next-button,.trade-back-button,.calculate-button{cursor:pointer;font-weight:700;transition:.15s}
-.stage-button{height: 38px;border: 1px solid #46515f;border-radius: 7px;color: #fff;font-size: 16px;font-weight: 800;cursor: pointer;transition: .15s;display: flex;align-items: center;justify-content: center;padding: 0;line-height: 1;}
+.stage-button,.trade-button,.trade-next-button,.trade-back-button,.calculate-button,.reset-button,.forum-link{cursor:pointer;font-weight:700;transition:.15s}
+.stage-button{display:flex;align-items:center;justify-content:center;height:40px;padding:0;border:1px solid #46515f;border-radius:7px;color:#fff;font-size:17px;font-weight:800;line-height:1}
+.stage-button.stage-1,.stage-icon.stage-1{background:#4b4f56;color:#fff;border-radius:7px}
 .stage-button.selected{outline:2px solid #73cafa;outline-offset:2px;transform:translateY(-1px)}
 .stage-2,.stage-3,.stage-4{background:linear-gradient(135deg,#b9784b,#75452c)}
 .stage-5,.stage-6,.stage-7{background:linear-gradient(135deg,#d4dce5,#747f8c);color:#17202a}
 .stage-8,.stage-9,.stage-10{background:linear-gradient(135deg,#f8df83,#a77b20);color:#30230b}
 .stage-11,.stage-12,.stage-13{background:linear-gradient(135deg,#f4fbff,#c7d7ff,#e8bdf2,#9be7e5,#f8e6a8);color:#202638}
+.price-entry-row{display:flex;align-items:stretch;gap:8px}
 input[type=text]{width:100%;height:48px;padding:0 14px;border:1px solid #465466;border-radius:9px;outline:0;background:#1b2532;color:#fff;font-size:17px}
+.price-entry-row input{flex:1;min-width:0;width:auto}
 input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 .preview{min-height:22px;margin-top:7px;color:#75d0f5;font-size:14px;font-weight:600}
-.calculate-button{width:100%;height:48px;margin-top:8px;border:0;border-radius:9px;background:linear-gradient(135deg,#9be5ff,#45addd);color:#102331;font-size:16px;font-weight:800}
+.calculate-button{flex:0 0 108px;width:auto;height:48px;margin:0;border:0;border-radius:9px;background:linear-gradient(135deg,#9be5ff,#45addd);color:#102331;font-size:15px;font-weight:800}
 .calculate-button:hover{filter:brightness(1.08)}
 .message{display:none;margin-top:16px;padding:13px;border-radius:8px;background:#39252a;color:#ffb5bd;text-align:center;font-size:14px}
 .message.show,.result-area.show{display:block}
-.result-area{display:none;margin-top:25px}
+.result-area{display:none;margin-top:20px}
 .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.result-card{min-width:0;padding:16px 13px;border:1px solid #344252;border-top:3px solid #56bce9;border-radius:11px;background:#192330}
+.result-card{min-width:0;padding:13px;border:1px solid #344252;border-top:3px solid #56bce9;border-radius:11px;background:#192330}
 .result-card.max{border-top-color:#8bd9f5}
-.card-title{display:flex;align-items:center;gap:6px;margin-bottom:12px;color:#a9dff6;font-size:15px;font-weight:800;white-space:nowrap}
+.card-title{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:5px;row-gap:3px;margin-bottom:3px;color:#a9dff6;font-size:14px;font-weight:700;line-height:1.4}
 .max .card-title{color:#8bd9f5}
-.card-title-text{min-width:0}
+.stage-range,.heading-label,.rate-text{white-space:nowrap}
+.stage-range{display:inline-flex;align-items:baseline;white-space:nowrap}
+.stage-number{display:inline-block;width:1.3em;color:#fff;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+.range-arrow{margin:0 2px;color:#aab8c8}
+.heading-label{color:inherit}
+.rate-text{margin-left:1px;color:#d9eaf3;font-weight:500}
+.rate-number{display:inline-block;width:3em;text-align:right;font-variant-numeric:tabular-nums}
+.reference-toolbar{display:flex;align-items:center;justify-content:flex-end;min-height:18px;margin-top:1px}
+.narrow-setting{display:none;flex:0 0 auto;align-items:center;gap:4px;color:#bceaff;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap}
+.narrow-setting.show{display:inline-flex}
+.narrow-setting input{width:14px;height:14px;margin:0;accent-color:#56bce9;cursor:pointer}
+.reference-price{display:flex;align-items:center;gap:6px;min-width:0;margin:3px 0 0;line-height:1.3}
+.price-label{display:inline-flex;flex:0 0 auto;align-items:center;gap:4px;color:#aab8c8;font-size:12px;font-weight:600;white-space:nowrap}
 .stage-icon{display:inline-flex;flex:0 0 25px;align-items:center;justify-content:center;width:25px;height:25px;border:1px solid #46515f;border-radius:6px;font-size:13px;font-weight:800}
 .stage-icon:is(.stage-1,.stage-2,.stage-3,.stage-4){color:#fff}
 .stage-icon:is(.stage-5,.stage-6,.stage-7,.stage-8,.stage-9,.stage-10,.stage-11,.stage-12,.stage-13){color:#111}
-.stage-arrow{flex-shrink:0;color:#aab8c8;font-size:13px;font-weight:700}
-.multiplier-row{display:flex;align-items:center;justify-content:space-between;gap:5px;min-height:27px;margin-bottom:7px}
-.multiplier{min-width:0;color:#aab8c8;font-size:13px}
-.narrow-setting{display:none;flex-shrink:0;align-items:center;gap:5px;color:#bceaff;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
-.narrow-setting.show{display:inline-flex}
-.narrow-setting input{width:14px;height:14px;margin:0;accent-color:#56bce9;cursor:pointer}
-.reference-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin:18px 0 0;line-height:1.4;overflow-wrap:anywhere}
-.price-label{display:inline-flex;flex-shrink:0;align-items:center;gap:4px;color:#aab8c8;font-size:12px;font-weight:600}
-.price-stage-icon{flex-basis:44px;width:44px;height:38px;border-radius:7px;font-size:18px;transform: translateY(-1px);}
-.price-value{min-width:0;color:#fff;font-size:19px;font-weight:800;overflow-wrap:anywhere}
-.market-note{display:block;min-height:18px;margin-top:8px;font-size:11px;font-weight:700;line-height:1.5;text-align:center;visibility:hidden}
+.price-stage-icon{flex-basis:42px;width:42px;height:36px;border-radius:7px;font-size:17px;transform:translateY(-3px)}
+.price-value{flex:1 1 auto;min-width:0;margin-left:auto;color:#fff;font-size:clamp(12px,2.9vw,20px);font-weight:800;text-align:right;white-space:nowrap}
+.market-note{display:block;min-height:14px;margin-top:5px;font-size:11px;font-weight:700;line-height:1.5;text-align:center;visibility:hidden}
 .market-note.show{visibility:visible}
 .binding-note{color:#ff6b75}
 .popular-note{color:#ffb86b}
-.trade-buttons{display:grid;grid-template-columns:1fr;gap:6px}
-.trade-button{min-height:35px;border:1px solid #438eb2;border-radius:7px;background:#20394a;color:#bceaff;font-size:12px}
+.trade-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.trade-button{min-width:0;min-height:35px;border:1px solid #438eb2;border-radius:7px;background:#20394a;color:#bceaff;font-size:12px}
 .trade-button:hover,.trade-button.active{background:#286080;border-color:#8bd9f5}
-.stage-navigation{display:none;gap:6px;width:100%;margin-top:10px}
-.stage-navigation.show{display:flex}
+.stage-navigation{display:flex;align-items:center;gap:6px;width:100%;min-height:37px;margin-top:8px}
 .stage-navigation.back-only{justify-content:flex-end}
 .trade-next-button{display:none;flex:1;min-width:0;min-height:37px;padding:5px 7px;border:1px solid #8c79c7;border-radius:7px;background:#302b4a;color:#e0d8ff;font-size:12px}
 .trade-next-button.show{display:block}
 .trade-next-button:hover,.trade-back-button:hover{background:#453c68;border-color:#b6a5ff}
 .trade-back-button{display:none;flex:0 0 37px;align-items:center;justify-content:center;width:37px;height:37px;padding:0;border:1px solid #8c79c7;border-radius:7px;background:#302b4a;color:#e0d8ff;font-size:21px;line-height:1}
 .trade-back-button.show{display:flex}
+.card-footer{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-height:37px;margin-top:8px}
+.reset-button,.forum-link{display:flex;flex:1 1 0;align-items:center;justify-content:center;min-width:0;min-height:35px;padding:5px;border:1px solid #8c79c7;border-radius:7px;background:#302b4a;color:#e0d8ff;font-size:12px;text-align:center;text-decoration:none}
+.reset-button:hover,.forum-link:hover{background:#453c68;border-color:#b6a5ff}
 @media(max-width:480px){
   body{padding:20px 12px}
   h1{font-size:22px}
   .stage-grid{gap:4px}
-  .stage-button{height:34px;font-size:14px}
-  .result-grid{gap:8px}
-  .result-card{padding:13px 9px}
-  .reference-price{margin-top:0;gap:5px}
-  .price-label{font-size:11px}
-  .price-value{font-size:16px}
-  .trade-button{font-size:11px}
-  .card-title{gap:4px;font-size:12px}
-  .stage-icon{flex-basis:23px;width:23px;height:23px;font-size:12px}
-  .price-stage-icon{flex-basis:40px;width:40px;height:34px;font-size:16px}
-  .stage-arrow{font-size:11px}
-  .market-note{min-height:33px;font-size:10px}
-  .trade-next-button{font-size:11px}
+  .stage-button{height:35px;font-size:15px}
+  .price-entry-row{gap:6px}
+  .calculate-button{flex-basis:92px;font-size:14px}
+  #priceSectionTitle{margin-top:8px}
+  .result-grid{grid-template-columns:1fr;gap:10px}
+  .result-card{padding:13px 10px}
+  .card-title{font-size:13px}
+  .price-label{gap:4px;font-size:11px}
+  .price-stage-icon{flex-basis:36px;width:36px;height:33px;font-size:15px}
   .narrow-setting{font-size:10px}
-  .multiplier{font-size:12px}
+  .trade-button{font-size:12px}
+  .market-note{min-height:20px;font-size:10px}
+  .trade-next-button,.reset-button,.forum-link{font-size:11px}
 }
 </style>
 </head>
@@ -94,11 +104,15 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
   </section>
 
   <section class="section" aria-labelledby="priceSectionTitle">
-    <div class="section-title" id="priceSectionTitle">1강 기준가 (BP)</div>
-    <input id="priceInput" type="text" inputmode="numeric"
-      placeholder="1강 기준가 입력" autocomplete="off" aria-label="기준가 (BP)">
+    <div class="section-title" id="priceSectionTitle">
+      <span id="priceStageNumber">1</span><span class="price-stage-unit">강 기준가 입력</span>
+    </div>
+    <div class="price-entry-row">
+      <input id="priceInput" type="text" inputmode="numeric"
+        placeholder="BP 금액 입력" autocomplete="off" aria-label="기준가 금액">
+      <button class="calculate-button" id="calculateButton" type="button">계산하기</button>
+    </div>
     <div class="preview" id="pricePreview" aria-live="polite"></div>
-    <button class="calculate-button" id="calculateButton" type="button">계산하기</button>
   </section>
 
   <div class="message" id="message" role="alert">올바른 값을 입력해 주세요.</div>
@@ -107,13 +121,15 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
     <div class="result-grid">
       <article class="result-card">
         <div class="card-title">
-          <span class="stage-icon" id="minFromStageIcon"></span>
-          <span class="stage-arrow">→</span>
-          <span class="stage-icon" id="minToStageIcon"></span>
-          <span class="card-title-text">강 최소배율</span>
+          <span class="stage-range">
+            <span class="stage-number" id="minFromStage">1</span>
+            <span class="range-arrow">→</span>
+            <span class="stage-number" id="minToStage">2</span>강
+          </span>
+          <span class="heading-label">최소배율</span>
+          <span class="rate-text"><span class="rate-number" id="minRateValue">1</span>배</span>
         </div>
-        <div class="multiplier-row">
-          <div class="multiplier" id="minMultiplier"></div>
+        <div class="reference-toolbar">
           <label class="narrow-setting" id="minNarrowSetting">
             <input type="checkbox" id="minNarrowMode"><span>생제/공제</span>
           </label>
@@ -127,8 +143,8 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
         </div>
         <div class="market-note binding-note" id="bindingNote">귀속매물의 경우 하한가 배율이 낮을 수 있습니다.</div>
         <div class="trade-buttons">
-          <button class="trade-button" id="minUpperButton" type="button">상한가 계산</button>
           <button class="trade-button" id="minLowerButton" type="button">하한가 계산</button>
+          <button class="trade-button" id="minUpperButton" type="button">상한가 계산</button>
         </div>
         <div class="stage-navigation" id="stageNavigation">
           <button class="trade-next-button" id="nextMinUpperStageButton" type="button">다음단계 최소배율 계산</button>
@@ -139,13 +155,15 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 
       <article class="result-card max">
         <div class="card-title">
-          <span class="stage-icon" id="maxFromStageIcon"></span>
-          <span class="stage-arrow">→</span>
-          <span class="stage-icon" id="maxToStageIcon"></span>
-          <span class="card-title-text">강 최대배율</span>
+          <span class="stage-range">
+            <span class="stage-number" id="maxFromStage">1</span>
+            <span class="range-arrow">→</span>
+            <span class="stage-number" id="maxToStage">2</span>강
+          </span>
+          <span class="heading-label">최대배율</span>
+          <span class="rate-text"><span class="rate-number" id="maxRateValue">4</span>배</span>
         </div>
-        <div class="multiplier-row">
-          <div class="multiplier" id="maxMultiplier"></div>
+        <div class="reference-toolbar">
           <label class="narrow-setting" id="maxNarrowSetting">
             <input type="checkbox" id="maxNarrowMode"><span>생제/공제</span>
           </label>
@@ -159,7 +177,13 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
         </div>
         <div class="market-note popular-note" id="popularNote">인기매물의 경우 상한가 배율이 높을 수 있습니다.</div>
         <div class="trade-buttons">
+          <button class="trade-button" id="maxLowerButton" type="button">하한가 계산</button>
           <button class="trade-button" id="maxUpperButton" type="button">상한가 계산</button>
+        </div>
+        <div class="card-footer">
+          <a class="forum-link" href="https://www.fmkorea.com/fifa_online"
+            target="_blank" rel="noopener noreferrer">펨코 피갤가기</a>
+          <button class="reset-button" id="resetButton" type="button">전체 초기화</button>
         </div>
       </article>
     </div>
@@ -169,248 +193,247 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 <script>
 "use strict";
 
-const $ = id => document.getElementById(id);
-const ids = `
-  stageGrid priceInput pricePreview calculateButton message resultArea priceSectionTitle
-  minFromStageIcon minToStageIcon maxFromStageIcon maxToStageIcon
-  minPriceStageIcon maxPriceStageIcon minMultiplier maxMultiplier
-  minPriceLabel minPriceValue maxPriceLabel maxPriceValue
-  minUpperButton minLowerButton maxUpperButton
-  minNarrowMode maxNarrowMode minNarrowSetting maxNarrowSetting
-  bindingNote popularNote stageNavigation nextMinUpperStageButton backStageButton
+const $=id=>document.getElementById(id);
+const ids=`
+  stageGrid priceInput pricePreview calculateButton message resultArea priceStageNumber
+  minFromStage minToStage maxFromStage maxToStage minRateValue maxRateValue
+  minPriceStageIcon maxPriceStageIcon minPriceLabel minPriceValue maxPriceLabel maxPriceValue
+  minUpperButton minLowerButton maxUpperButton maxLowerButton minNarrowMode maxNarrowMode
+  minNarrowSetting maxNarrowSetting bindingNote popularNote stageNavigation
+  nextMinUpperStageButton backStageButton resetButton
 `;
-const dom = Object.fromEntries(ids.trim().split(/\s+/).map(id => [id, $(id)]));
+const dom=Object.fromEntries(ids.trim().split(/\s+/).map(id=>[id,$(id)]));
 
-const MIN_PRICE = 1000n;
-const MAX_INPUT_PRICE = 10n ** 19n;
-const MAX_INPUT_DIGITS = 1000;
+const MIN_PRICE=1000n;
+const MAX_INPUT_PRICE=10n**19n;
+const MAX_INPUT_DIGITS=1000;
 
 function makeRate(text) {
-  const [whole, fraction = ""] = text.split(".");
+  const [whole,fraction=""]=text.split(".");
   return {
-    label: text,
-    numerator: BigInt(whole + fraction),
-    denominator: 10n ** BigInt(fraction.length)
+    label:text,
+    numerator:BigInt(whole+fraction),
+    denominator:10n**BigInt(fraction.length)
   };
 }
 
-const multipliers = Object.fromEntries(
+const multipliers=Object.fromEntries(
   Object.entries({
-    2:["1","4"], 3:["1","5"], 4:["1","6"], 5:["1.5","8"],
-    6:["2","20"], 7:["2.15","25"], 8:["1.7","40"], 9:["1.2","30"],
-    10:["1.45","35"], 11:["1.55","35"], 12:["1.55","35"], 13:["3.21","35"]
-  }).map(([stage, rates]) => [stage, rates.map(makeRate)])
+    2:["1","4"],3:["1","5"],4:["1","6"],5:["1.5","8"],
+    6:["2","20"],7:["2.15","25"],8:["1.7","40"],9:["1.2","30"],
+    10:["1.45","35"],11:["1.55","35"],12:["1.55","35"],13:["3.21","35"]
+  }).map(([stage,rates])=>[stage,rates.map(makeRate)])
 );
 
-const tradeRates = {
-  upper: [makeRate("1.1"), makeRate("1.01")],
-  lower: [makeRate("0.9"), makeRate("0.99")]
+const tradeRates={
+  upper:[makeRate("1.1"),makeRate("1.01")],
+  lower:[makeRate("0.9"),makeRate("0.99")]
 };
 
-const state = {stage:2, result:null, minTrade:null, maxTrade:null, history:[]};
-const stageButtons = [];
+const state={stage:1,result:null,minTrade:null,maxTrade:null,history:[]};
+const stageButtons=[];
 
-function roundRatio(numerator, denominator, unit = 1n) {
-  const scaled = denominator * unit;
-  const quotient = numerator / scaled;
-  const remainder = numerator % scaled;
-  return (quotient + (2n * remainder >= scaled ? 1n : 0n)) * unit;
+function roundRatio(numerator,denominator,unit=1n) {
+  const scaled=denominator*unit;
+  const quotient=numerator/scaled;
+  const remainder=numerator%scaled;
+  return (quotient+(2n*remainder>=scaled?1n:0n))*unit;
 }
 
 function round3(value) {
-  const unit = 10n ** BigInt(Math.max(0, value.toString().length - 3));
-  return roundRatio(value, 1n, unit);
+  const unit=10n**BigInt(Math.max(0,value.toString().length-3));
+  return roundRatio(value,1n,unit);
 }
 
-function multiply3(value, rate) {
-  const numerator = value * rate.numerator;
-  const integerPart = numerator / rate.denominator;
-  const unit = 10n ** BigInt(Math.max(0, integerPart.toString().length - 3));
-  return roundRatio(numerator, rate.denominator, unit);
+function multiply3(value,rate) {
+  const numerator=value*rate.numerator;
+  const integerPart=numerator/rate.denominator;
+  const unit=10n**BigInt(Math.max(0,integerPart.toString().length-3));
+  return roundRatio(numerator,rate.denominator,unit);
 }
 
 function priceUnit(value) {
-  return 10n ** BigInt(Math.max(0, value.toString().length - 3));
+  return 10n**BigInt(Math.max(0,value.toString().length-3));
 }
 
 function formatPrice(value) {
-  value = BigInt(value);
-  if (value < 1000000n) return `${value.toLocaleString("ko-KR")} BP`;
+  value=BigInt(value);
+  if(value<1000000n)return `${value.toLocaleString("ko-KR")} BP`;
 
-  const units = ["","만","억","조","경","해","자","양","구","간","정","재","극"];
-  const parts = [];
-  let index = 0;
+  const units=["","만","억","조","경","해","자","양","구","간","정","재","극"];
+  const parts=[];
+  let index=0;
 
-  while (value > 0n) {
-    const chunk = Number(value % 10000n);
-    if (chunk) {
-      parts.unshift(`${chunk.toLocaleString("ko-KR")}${units[index] ?? `×10^${index * 4}`}`);
-    }
-    value /= 10000n;
+  while(value>0n) {
+    const chunk=Number(value%10000n);
+    if(chunk)parts.unshift(`${chunk.toLocaleString("ko-KR")}${units[index]??`×10^${index*4}`}`);
+    value/=10000n;
     index++;
   }
   return `${parts.join(" ")} BP`;
 }
 
 function parsePrice(raw) {
-  const text = raw.trim();
-  if (!/^(?:0|[1-9]\d*|[1-9]\d{0,2}(?:,\d{3})+)$/.test(text)) return null;
-
-  const digits = text.replace(/,/g, "");
-  if (digits.length > MAX_INPUT_DIGITS) return null;
-
-  try { return BigInt(digits); }
-  catch { return null; }
+  const text=raw.trim();
+  if(!/^(?:0|[1-9]\d*|[1-9]\d{0,2}(?:,\d{3})+)$/.test(text))return null;
+  const digits=text.replace(/,/g,"");
+  if(digits.length>MAX_INPUT_DIGITS)return null;
+  try{return BigInt(digits);}catch{return null;}
 }
 
-function calculateTradePrice(reference, rate) {
-  const rounded = roundRatio(
-    reference * rate.numerator,
+function calculateTradePrice(reference,rate) {
+  const rounded=roundRatio(
+    reference*rate.numerator,
     rate.denominator,
     priceUnit(reference)
   );
-  return rounded < MIN_PRICE ? MIN_PRICE : rounded;
+  return rounded<MIN_PRICE?MIN_PRICE:rounded;
 }
 
-function renderPrice(type, label, value) {
-  const stage = state.result.stage;
-  const icon = dom[`${type}PriceStageIcon`];
-
-  icon.textContent = stage;
-  icon.className = `stage-icon price-stage-icon stage-${stage}`;
-  dom[`${type}PriceLabel`].textContent = `강 ${label}`;
-  dom[`${type}PriceValue`].textContent = formatPrice(value);
+function renderPrice(type,label,value) {
+  const stage=state.result.stage;
+  const icon=dom[`${type}PriceStageIcon`];
+  icon.textContent=stage;
+  icon.className=`stage-icon price-stage-icon stage-${stage}`;
+  dom[`${type}PriceLabel`].textContent=`강 ${label}`;
+  dom[`${type}PriceValue`].textContent=formatPrice(value);
 }
 
 function setStage(stage) {
-  state.stage = stage;
-  stageButtons.forEach(button => {
-    const selected = Number(button.dataset.stage) === stage;
-    button.classList.toggle("selected", selected);
-    button.setAttribute("aria-pressed", String(selected));
+  state.stage=stage;
+  stageButtons.forEach(button=>{
+    const selected=Number(button.dataset.stage)===stage;
+    button.classList.toggle("selected",selected);
+    button.setAttribute("aria-pressed",String(selected));
   });
-  dom.priceSectionTitle.textContent = `${stage - 1}강 기준가 (BP)`;
-  dom.priceInput.placeholder = `${stage - 1}강 기준가 입력`;
+  dom.priceStageNumber.textContent=stage;
 }
 
-function clearResult(clearHistory = true) {
-  state.result = null;
-  state.minTrade = state.maxTrade = null;
-  if (clearHistory) state.history.length = 0;
+function clearResult(clearHistory=true) {
+  state.result=null;
+  state.minTrade=state.maxTrade=null;
+  if(clearHistory)state.history.length=0;
 
   dom.resultArea.classList.remove("show");
   dom.message.classList.remove("show");
-  dom.minNarrowMode.checked = dom.maxNarrowMode.checked = false;
+  dom.minNarrowMode.checked=dom.maxNarrowMode.checked=false;
 
   [
     "minNarrowSetting","maxNarrowSetting","bindingNote","popularNote",
-    "stageNavigation","nextMinUpperStageButton","backStageButton"
-  ].forEach(id => dom[id].classList.remove("show","back-only"));
+    "nextMinUpperStageButton","backStageButton"
+  ].forEach(id=>dom[id].classList.remove("show","back-only"));
 
-  [["minUpperButton","상한가 계산"],["minLowerButton","하한가 계산"],["maxUpperButton","상한가 계산"]]
-    .forEach(([id,label]) => {
+  [["minUpperButton","상한가 계산"],["minLowerButton","하한가 계산"],
+   ["maxUpperButton","상한가 계산"],["maxLowerButton","하한가 계산"]]
+    .forEach(([id,label])=>{
       dom[id].classList.remove("active");
-      dom[id].textContent = label;
+      dom[id].textContent=label;
     });
 }
 
-function showError(text = "올바른 값을 입력해 주세요.") {
-  dom.message.textContent = text;
+function showError(text="올바른 값을 입력해 주세요.") {
+  dom.message.textContent=text;
   dom.message.classList.add("show");
   dom.resultArea.classList.remove("show");
 }
 
 function render() {
-  if (!state.result) return;
+  if(!state.result)return;
 
-  const {min, max, stage} = state.result;
-  const from = stage - 1;
+  const {min,max,stage}=state.result;
+  const from=stage-1;
+  const [minRate,maxRate]=multipliers[stage];
 
-  ["min","max"].forEach(prefix => {
-    const fromIcon = dom[`${prefix}FromStageIcon`];
-    const toIcon = dom[`${prefix}ToStageIcon`];
-    fromIcon.textContent = from;
-    toIcon.textContent = stage;
-    fromIcon.className = `stage-icon stage-${from}`;
-    toIcon.className = `stage-icon stage-${stage}`;
-  });
+  dom.minFromStage.textContent=from;
+  dom.minToStage.textContent=stage;
+  dom.maxFromStage.textContent=from;
+  dom.maxToStage.textContent=stage;
+  dom.minRateValue.textContent=minRate.label;
+  dom.maxRateValue.textContent=maxRate.label;
 
-  const [minRate, maxRate] = multipliers[stage];
-  dom.minMultiplier.textContent = `배율 ${minRate.label}배`;
-  dom.maxMultiplier.textContent = `배율 ${maxRate.label}배`;
   dom.minNarrowSetting.classList.add("show");
   dom.maxNarrowSetting.classList.add("show");
 
-  const minLabel = state.minTrade === "upper" ? "상한가" :
-    state.minTrade === "lower" ? "하한가" : "기준가";
-  const maxLabel = state.maxTrade ? "상한가" : "기준가";
-  const minValue = state.minTrade
-    ? calculateTradePrice(min, tradeRates[state.minTrade][dom.minNarrowMode.checked ? 1 : 0])
-    : min;
-  const maxValue = state.maxTrade
-    ? calculateTradePrice(max, tradeRates.upper[dom.maxNarrowMode.checked ? 1 : 0])
-    : max;
+  const minLabel=state.minTrade==="upper"?"상한가":
+    state.minTrade==="lower"?"하한가":"기준가";
+  const maxLabel=state.maxTrade==="upper"?"상한가":
+    state.maxTrade==="lower"?"하한가":"기준가";
+  const minValue=state.minTrade
+    ?calculateTradePrice(min,tradeRates[state.minTrade][dom.minNarrowMode.checked?1:0])
+    :min;
+  const maxValue=state.maxTrade
+    ?calculateTradePrice(max,tradeRates[state.maxTrade][dom.maxNarrowMode.checked?1:0])
+    :max;
 
-  renderPrice("min", minLabel, minValue);
-  renderPrice("max", maxLabel, maxValue);
+  renderPrice("min",minLabel,minValue);
+  renderPrice("max",maxLabel,maxValue);
 
-  dom.minUpperButton.textContent = state.minTrade === "upper" ? "원래대로" : "상한가 계산";
-  dom.minLowerButton.textContent = state.minTrade === "lower" ? "원래대로" : "하한가 계산";
-  dom.maxUpperButton.textContent = state.maxTrade ? "원래대로" : "상한가 계산";
+  dom.minUpperButton.textContent=state.minTrade==="upper"?"원래대로":"상한가 계산";
+  dom.minLowerButton.textContent=state.minTrade==="lower"?"원래대로":"하한가 계산";
+  dom.maxUpperButton.textContent=state.maxTrade==="upper"?"원래대로":"상한가 계산";
+  dom.maxLowerButton.textContent=state.maxTrade==="lower"?"원래대로":"하한가 계산";
 
-  dom.minUpperButton.classList.toggle("active", state.minTrade === "upper");
-  dom.minLowerButton.classList.toggle("active", state.minTrade === "lower");
-  dom.maxUpperButton.classList.toggle("active", Boolean(state.maxTrade));
-  dom.bindingNote.classList.toggle("show", state.minTrade === "lower" && minValue > MIN_PRICE);
-  dom.popularNote.classList.toggle("show", Boolean(state.maxTrade));
+  dom.minUpperButton.classList.toggle("active",state.minTrade==="upper");
+  dom.minLowerButton.classList.toggle("active",state.minTrade==="lower");
+  dom.maxUpperButton.classList.toggle("active",state.maxTrade==="upper");
+  dom.maxLowerButton.classList.toggle("active",state.maxTrade==="lower");
+  dom.bindingNote.classList.toggle("show",state.minTrade==="lower"&&minValue>MIN_PRICE);
+  dom.popularNote.classList.toggle("show",state.maxTrade==="upper");
 
-  const canNavigate = state.minTrade !== "lower";
-  const canNext = canNavigate && stage < 13;
-  const canBack = canNavigate && state.history.length > 0;
+  const canNext=stage<13;
+  const canBack=state.history.length>0;
 
-  dom.nextMinUpperStageButton.classList.toggle("show", canNext);
-  dom.backStageButton.classList.toggle("show", canBack);
-  dom.stageNavigation.classList.toggle("show", canNext || canBack);
-  dom.stageNavigation.classList.toggle("back-only", canBack && !canNext);
-  dom.nextMinUpperStageButton.textContent = state.minTrade === "upper"
-    ? "상한가 기준 다음 단계 최소배율 계산"
-    : "다음단계 최소배율 계산";
+  dom.nextMinUpperStageButton.classList.toggle("show",canNext);
+  dom.backStageButton.classList.toggle("show",canBack);
+  dom.stageNavigation.classList.toggle("back-only",canBack&&!canNext);
+  dom.nextMinUpperStageButton.textContent=
+    state.minTrade==="upper"
+      ?"상한가 기준 다음 단계 최소배율 계산"
+      :state.minTrade==="lower"
+        ?"하한가 기준 다음 단계 최소배율 계산"
+        :"다음단계 최소배율 계산";
 
   dom.message.classList.remove("show");
   dom.resultArea.classList.add("show");
 }
 
-function calculate(chained = false) {
+function calculate(chained=false) {
   clearResult(!chained);
 
-  const raw = dom.priceInput.value.trim();
-  if (raw === "") {
-    dom.priceInput.value = "0";
-    dom.pricePreview.textContent = formatPrice(0n);
+  const raw=dom.priceInput.value.trim();
+  if(raw==="") {
+    dom.priceInput.value="0";
+    dom.pricePreview.textContent=formatPrice(0n);
   }
 
-  const input = parsePrice(raw === "" ? "0" : raw);
-
-  if (
-    input === null || input < 0n ||
-    (!chained && input > MAX_INPUT_PRICE) ||
-    (!chained && input % priceUnit(input) !== 0n)
+  const input=parsePrice(raw===""?"0":raw);
+  if(
+    input===null||input<0n||
+    (!chained&&input>MAX_INPUT_PRICE)||
+    (!chained&&input%priceUnit(input)!==0n)
   ) {
     showError();
     return false;
   }
 
-  const [minRate, maxRate] = multipliers[state.stage];
-  const base = round3(input);
-  const min = multiply3(base, minRate);
-  const max = multiply3(base, maxRate);
-
-  if (min < 0n || max < 0n) {
+  const resultStage=state.stage+1;
+  const rates=multipliers[resultStage];
+  if(!rates) {
     showError();
     return false;
   }
 
-  state.result = {min, max, stage:state.stage};
+  const [minRate,maxRate]=rates;
+  const base=round3(input);
+  const min=multiply3(base,minRate);
+  const max=multiply3(base,maxRate);
+
+  if(min<0n||max<0n) {
+    showError();
+    return false;
+  }
+
+  state.result={min,max,stage:resultStage};
   render();
   return true;
 }
@@ -429,59 +452,70 @@ function saveState() {
 }
 
 function restoreState() {
-  const previous = state.history.pop();
-  if (!previous) return;
+  const previous=state.history.pop();
+  if(!previous)return;
 
-  Object.assign(state, {
+  Object.assign(state,{
     stage:previous.stage,
     result:previous.result,
     minTrade:previous.minTrade,
     maxTrade:previous.maxTrade
   });
-  dom.priceInput.value = previous.input;
-  dom.pricePreview.textContent = previous.preview;
-  dom.minNarrowMode.checked = previous.minNarrow;
-  dom.maxNarrowMode.checked = previous.maxNarrow;
+  dom.priceInput.value=previous.input;
+  dom.pricePreview.textContent=previous.preview;
+  dom.minNarrowMode.checked=previous.minNarrow;
+  dom.maxNarrowMode.checked=previous.maxNarrow;
   setStage(previous.stage);
   render();
 }
 
 function calculateNextStage() {
-  if (!state.result || state.result.stage >= 13 || state.minTrade === "lower") return;
+  if(!state.result||state.result.stage>=13)return;
 
-  const base = state.minTrade === "upper"
-    ? calculateTradePrice(state.result.min, tradeRates.upper[dom.minNarrowMode.checked ? 1 : 0])
-    : state.result.min;
+  const direction=state.minTrade;
+  const base=direction
+    ?calculateTradePrice(
+        state.result.min,
+        tradeRates[direction][dom.minNarrowMode.checked?1:0]
+      )
+    :state.result.min;
 
   saveState();
-  setStage(state.result.stage + 1);
-  dom.priceInput.value = base.toString();
-  dom.pricePreview.textContent = formatPrice(base);
+  setStage(state.result.stage);
+  dom.priceInput.value=base.toString();
+  dom.pricePreview.textContent=formatPrice(base);
 
-  if (!calculate(true)) restoreState();
+  if(!calculate(true))restoreState();
 }
 
-function toggleTrade(type, direction) {
-  if (!state.result) return;
-  const key = type === "min" ? "minTrade" : "maxTrade";
-  state[key] = state[key] === direction ? null : direction;
+function toggleTrade(type,direction) {
+  if(!state.result)return;
+  const key=type==="min"?"minTrade":"maxTrade";
+  state[key]=state[key]===direction?null:direction;
   render();
 }
 
-function createStageButtons() {
-  const fragment = document.createDocumentFragment();
+function resetAll() {
+  clearResult();
+  setStage(1);
+  dom.priceInput.value="";
+  dom.pricePreview.textContent="";
+}
 
-  for (let stage = 2; stage <= 13; stage++) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `stage-button stage-${stage}`;
-    button.textContent = stage;
-    button.dataset.stage = stage;
-    button.setAttribute("aria-pressed", String(stage === state.stage));
-    button.addEventListener("click", () => {
+function createStageButtons() {
+  const fragment=document.createDocumentFragment();
+
+  for(let stage=1;stage<=12;stage++) {
+    const button=document.createElement("button");
+    button.type="button";
+    button.className=`stage-button stage-${stage}`;
+    button.textContent=stage;
+    button.dataset.stage=stage;
+    button.setAttribute("aria-pressed",String(stage===state.stage));
+    button.addEventListener("click",()=>{
       clearResult();
       setStage(stage);
-      dom.pricePreview.textContent = "";
+      dom.pricePreview.textContent="";
     });
     stageButtons.push(button);
     fragment.append(button);
@@ -492,30 +526,26 @@ function createStageButtons() {
 createStageButtons();
 setStage(state.stage);
 
-dom.priceInput.addEventListener("input", () => {
+dom.priceInput.addEventListener("input",()=>{
   clearResult();
-  const value = parsePrice(dom.priceInput.value);
-  dom.pricePreview.textContent =
-    value !== null && value >= 0n && value <= MAX_INPUT_PRICE
-      ? formatPrice(value)
-      : "";
+  const value=parsePrice(dom.priceInput.value);
+  dom.pricePreview.textContent=
+    value!==null&&value>=0n&&value<=MAX_INPUT_PRICE?formatPrice(value):"";
 });
 
-dom.calculateButton.addEventListener("click", () => calculate());
-dom.priceInput.addEventListener("keydown", event => {
-  if (event.key === "Enter") calculate();
+dom.calculateButton.addEventListener("click",()=>calculate());
+dom.priceInput.addEventListener("keydown",event=>{
+  if(event.key==="Enter")calculate();
 });
-dom.minUpperButton.addEventListener("click", () => toggleTrade("min","upper"));
-dom.minLowerButton.addEventListener("click", () => toggleTrade("min","lower"));
-dom.maxUpperButton.addEventListener("click", () => toggleTrade("max","upper"));
-dom.minNarrowMode.addEventListener("change", () => {
-  if (state.minTrade) render();
-});
-dom.maxNarrowMode.addEventListener("change", () => {
-  if (state.maxTrade) render();
-});
-dom.nextMinUpperStageButton.addEventListener("click", calculateNextStage);
-dom.backStageButton.addEventListener("click", restoreState);
+dom.minUpperButton.addEventListener("click",()=>toggleTrade("min","upper"));
+dom.minLowerButton.addEventListener("click",()=>toggleTrade("min","lower"));
+dom.maxUpperButton.addEventListener("click",()=>toggleTrade("max","upper"));
+dom.maxLowerButton.addEventListener("click",()=>toggleTrade("max","lower"));
+dom.minNarrowMode.addEventListener("change",()=>{if(state.minTrade)render();});
+dom.maxNarrowMode.addEventListener("change",()=>{if(state.maxTrade)render();});
+dom.nextMinUpperStageButton.addEventListener("click",calculateNextStage);
+dom.backStageButton.addEventListener("click",restoreState);
+dom.resetButton.addEventListener("click",resetAll);
 </script>
 </body>
 </html>
