@@ -7,7 +7,7 @@
 <style>
 :root{color-scheme:dark;font-family:Arial,"Malgun Gothic",sans-serif;background:#10151d;color:#edf3fa}
 *{box-sizing:border-box}
-body{margin:0;padding:24px 16px}
+body{margin:0;padding:100px 24px 16px}
 .container{max-width:620px;margin:auto}
 h1{margin:0 0 24px;text-align:center;font-size:25px;color:#eaf7ff}
 .section{margin-bottom:22px}
@@ -62,15 +62,22 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 .trade-back-button{display:none;flex:0 0 37px;align-items:center;justify-content:center;width:37px;height:37px;padding:0;border:1px solid #8c79c7;border-radius:7px;background:#302b4a;color:#e0d8ff;font-size:21px;line-height:1}
 .trade-back-button.show{display:flex}
 @media(max-width:480px){
-  body{padding:20px 12px}h1{font-size:22px}
-  .stage-grid{gap:4px}.stage-button{height:34px;font-size:12px}
-  .result-grid{gap:8px}.result-card{padding:13px 9px}
+  body{padding:20px 12px}
+  h1{font-size:22px}
+  .stage-grid{gap:4px}
+  .stage-button{height:34px;font-size:12px}
+  .result-grid{gap:8px}
+  .result-card{padding:13px 9px}
   .reference-price{margin-top:0;gap:5px}
-  .price-label{font-size:11px}.price-value{font-size:16px}
-  .trade-button{font-size:11px}.card-title{gap:4px;font-size:12px}
+  .price-label{font-size:11px}
+  .price-value{font-size:16px}
+  .trade-button{font-size:11px}
+  .card-title{gap:4px;font-size:12px}
   .stage-icon{flex-basis:23px;width:23px;height:23px;font-size:12px}
-  .stage-arrow{font-size:11px}.market-note{min-height:33px;font-size:10px}
-  .trade-next-button{font-size:11px}.narrow-setting{font-size:10px}
+  .stage-arrow{font-size:11px}
+  .market-note{min-height:33px;font-size:10px}
+  .trade-next-button{font-size:11px}
+  .narrow-setting{font-size:10px}
   .multiplier{font-size:12px}
 }
 </style>
@@ -98,8 +105,10 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
     <div class="result-grid">
       <article class="result-card">
         <div class="card-title">
-          <span class="stage-icon" id="minFromStageIcon"></span><span class="stage-arrow">→</span>
-          <span class="stage-icon" id="minToStageIcon"></span><span class="card-title-text">강 최소배율</span>
+          <span class="stage-icon" id="minFromStageIcon"></span>
+          <span class="stage-arrow">→</span>
+          <span class="stage-icon" id="minToStageIcon"></span>
+          <span class="card-title-text">강 최소배율</span>
         </div>
         <div class="multiplier-row">
           <div class="multiplier" id="minMultiplier"></div>
@@ -125,8 +134,10 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
 
       <article class="result-card max">
         <div class="card-title">
-          <span class="stage-icon" id="maxFromStageIcon"></span><span class="stage-arrow">→</span>
-          <span class="stage-icon" id="maxToStageIcon"></span><span class="card-title-text">강 최대배율</span>
+          <span class="stage-icon" id="maxFromStageIcon"></span>
+          <span class="stage-arrow">→</span>
+          <span class="stage-icon" id="maxToStageIcon"></span>
+          <span class="card-title-text">강 최대배율</span>
         </div>
         <div class="multiplier-row">
           <div class="multiplier" id="maxMultiplier"></div>
@@ -356,10 +367,17 @@ function render() {
 
 function calculate(chained = false) {
   clearResult(!chained);
-  const input = parsePrice(dom.priceInput.value);
+
+  const raw = dom.priceInput.value.trim();
+  if (raw === "") {
+    dom.priceInput.value = "0";
+    dom.pricePreview.textContent = formatPrice(0n);
+  }
+
+  const input = parsePrice(raw === "" ? "0" : raw);
 
   if (
-    input === null || input < MIN_PRICE ||
+    input === null || input < 0n ||
     (!chained && input > MAX_INPUT_PRICE) ||
     (!chained && input % priceUnit(input) !== 0n)
   ) {
@@ -372,7 +390,7 @@ function calculate(chained = false) {
   const min = multiply3(base, minRate);
   const max = multiply3(base, maxRate);
 
-  if (min < MIN_PRICE || max < MIN_PRICE) {
+  if (min < 0n || max < 0n) {
     showError();
     return false;
   }
@@ -463,7 +481,7 @@ dom.priceInput.addEventListener("input", () => {
   clearResult();
   const value = parsePrice(dom.priceInput.value);
   dom.pricePreview.textContent =
-    value !== null && value >= MIN_PRICE && value <= MAX_INPUT_PRICE
+    value !== null && value >= 0n && value <= MAX_INPUT_PRICE
       ? formatPrice(value)
       : "";
 });
