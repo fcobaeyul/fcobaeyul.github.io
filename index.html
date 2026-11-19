@@ -9,7 +9,9 @@
   color-scheme:dark;
   font-family:Arial,"Malgun Gothic",sans-serif;
   background:#10151d;
-  color:#edf3fa
+  color:#edf3fa;
+  --lower-rgb:48,98,255;
+  --upper-rgb:237,68,40;
 }
 *{box-sizing:border-box}
 body{margin:0;padding:100px 24px 16px}
@@ -127,11 +129,26 @@ input[type=text]:focus{border-color:#56bce9;box-shadow:0 0 0 2px #56bce926}
   border-radius:7px;background:#20394a;color:#e0f6ff;
   font-size:14px;font-weight:800;line-height:1.25
 }
-.trade-button:hover,.trade-button.active{background:#286080;border-color:#8bd9f5}
-.trade-button.lower-button{border-color:#438eb2;background:#20394a;color:#d5f1ff}
-.trade-button.lower-button:hover,.trade-button.lower-button.active{background:#286080;border-color:#8bd9f5}
-.trade-button.upper-button{border-color:#a84c58;background:#492b31;color:#ffd4d8}
-.trade-button.upper-button:hover,.trade-button.upper-button.active{background:#713640;border-color:#ff8792;color:#fff1f2}
+.trade-button.lower-button{
+  border-color:rgb(var(--lower-rgb));
+  background:linear-gradient(135deg,rgba(var(--lower-rgb),.36),rgba(var(--lower-rgb),.18));
+  color:#e8edff
+}
+.trade-button.lower-button:hover,.trade-button.lower-button.active{
+  border-color:rgb(var(--lower-rgb));
+  background:rgba(var(--lower-rgb),.52);
+  color:#fff
+}
+.trade-button.upper-button{
+  border-color:rgb(var(--upper-rgb));
+  background:linear-gradient(135deg,rgba(var(--upper-rgb),.36),rgba(var(--upper-rgb),.18));
+  color:#ffe8e3
+}
+.trade-button.upper-button:hover,.trade-button.upper-button.active{
+  border-color:rgb(var(--upper-rgb));
+  background:rgba(var(--upper-rgb),.52);
+  color:#fff
+}
 @media(max-width:480px){
   body{padding:52px 12px 16px}
   h1{font-size:22px}
@@ -388,11 +405,11 @@ function render() {
   dom.maxRateValue.textContent=maxRate.label;
 
   const rateIndex=dom.narrowMode.checked?1:0;
-  const referencePrices={min,max};
+  const references={min,max};
 
   for(const type of TYPES) {
     const direction=state[`${type}Trade`];
-    const reference=referencePrices[type];
+    const reference=references[type];
     const value=direction
       ?calculateTradePrice(reference,tradeRates[direction][rateIndex])
       :reference;
